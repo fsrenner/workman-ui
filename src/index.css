@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-blue: #58abd5;
+}
+
+.navigation-color {
+  background: var(--primary-blue);
+}
+
+.border {
+  border: 1px solid black;
+}
