@@ -100,7 +100,7 @@ User.propTypes = {
     state: PropTypes.string,
     zip: PropTypes.number,
     last_login: PropTypes.string,
-    verified: PropTypes.boolean,
+    verified: PropTypes.bool,
     
   }),
   hideButtons: PropTypes.bool,

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/login/Login';
+import Logout from './components/logout/Logout';
 import Home from './components/home/Home';
 import Churches from './components/churches/Churches';
 import Businesses from './components/businesses/Busineses';
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/logout" element={<Logout />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/reset" element={<PasswordReset />} />
           <Route exact path="/churches" element={<Churches />} />

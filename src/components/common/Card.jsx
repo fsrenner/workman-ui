@@ -15,7 +15,9 @@ function Card({ title, children, id }) {
 
 Card.propTypes = {
   title: PropTypes.string,
-  id: PropTypes.string,
+  id: PropTypes.oneOfType(
+    [PropTypes.string, PropTypes.number]
+  ),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

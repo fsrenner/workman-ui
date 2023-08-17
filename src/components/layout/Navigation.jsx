@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../common/Logo';
 import Button from '../common/Button';
@@ -6,10 +6,18 @@ import Button from '../common/Button';
 function Navigation() {
   const navigate = useNavigate();
   const [navbar, setNavbar] = useState(false);
-  const linkClickNavigation = (path) => {
-    navigate(path);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const linkClickNavigation = (path, state) => {
+    navigate(path, { state });
     setNavbar(!navbar);
   };
+
+  useEffect(() => {
+    const isUserLoggedIn = localStorage.getItem('user');
+    if (isUserLoggedIn) {
+      setIsLoggedIn(!isLoggedIn);
+    }
+  }, []);
 
   return (
     <nav className="w-full  absolute bg-white z-100 shadow">
@@ -65,14 +73,14 @@ function Navigation() {
             }`}
           >
             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-              <li>
+              {isLoggedIn && <li>
                 <a
                   onClick={() => linkClickNavigation("/users")}
                   className="text-gray-600 hover:cursor-pointer hover:underline font-semibold"
                 >
                   Users
                 </a>
-              </li>
+              </li>}
               <li>
                 <a
                   onClick={() => linkClickNavigation("/churches")}
@@ -97,22 +105,44 @@ function Navigation() {
                   Categories
                 </a>
               </li>
-              <li>
-                <Button
-                  onClick={() => linkClickNavigation("/login")}
-                  type="button"
-                  title="Sign In Button"
-                  text="Sign In"
-                />
-              </li>
-              <li>
-                <Button
-                  onClick={() => linkClickNavigation("/signup")}
-                  type="button"
-                  title="Sign Up Button"
-                  text="Sign Up"
-                />
-              </li>
+              {!isLoggedIn ? (
+                <li>
+                  <Button
+                    onClick={() => linkClickNavigation("/login")}
+                    type="button"
+                    title="Log In Button"
+                    text="Log In"
+                  />
+                </li>
+              ) : (
+                <li>
+                  <Button
+                    onClick={() => linkClickNavigation("/logout")}
+                    type="button"
+                    title="Log Out Button"
+                    text="Log Out"
+                  />
+                </li>
+              )}
+              {!isLoggedIn ? (
+                <li>
+                  <Button
+                    onClick={() => linkClickNavigation("/users/add", { signup: true })}
+                    type="button"
+                    title="Sign Up Button"
+                    text="Sign Up"
+                  />
+                </li>
+              ) : (
+                <li>
+                  <Button
+                    onClick={() => linkClickNavigation("/account")}
+                    type="button"
+                    title="My Account Button"
+                    text="My Account"
+                  />
+                </li>
+              )}
             </ul>
           </div>
         </div>

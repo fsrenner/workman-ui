@@ -1,10 +1,19 @@
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+import User from '../users/User';
 
 function Home() {
-  const { state } = useLocation()
+  const [user, setUser] = useState(null);
 
-  return state 
-    ? <div>The User is: {JSON.stringify(state.user)}</div> 
+  useEffect(() => {
+    const isLoggedInUser = localStorage.getItem('user');
+    if (isLoggedInUser) {
+      setUser(JSON.parse(isLoggedInUser));
+    }
+  }, []);
+
+  return user 
+    ? <User user={user} />
     : <div>This is the Home component</div>;
 }
 

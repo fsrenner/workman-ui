@@ -21,7 +21,9 @@ function Login() {
   const handleSubmit = async (e, endpoint) => {
     e.preventDefault();
     if (endpoint !== "login") {
-      navigate('/signup');
+      navigate('/users/add', { state: { 
+        signup: true
+      }});
     } else {
       if (!username) {
         setUsernameError("Please enter your Username");

@@ -15,12 +15,12 @@ function Button({ type, classes, onClick, onSubmit, title, text}) {
 }
 
 Button.propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.oneOf(["button", "submit", "reset"]),
   classes: PropTypes.string,
   title: PropTypes.string,
   text: PropTypes.string,
   onClick: PropTypes.func,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
 };
 
 export default Button;

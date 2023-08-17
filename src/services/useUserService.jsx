@@ -28,13 +28,20 @@ function useUserService() {
           "include"
         );
         console.log(user);
+        localStorage.setItem("user", JSON.stringify(user.user));
         navigate(navigation.home, { state: { user } });
       } catch (error) {
         console.error(error);
         navigate(navigation.signup);
       }
     },
-    logout: () => {},
+    logout: async () => {
+      try {
+        await fetch.post(endpoints.logout, null, 'include');
+      } catch (error) {
+        console.error(error);
+      }
+    },
     getUsers: async (queryString) => {
       const queries = queryString || "";
       try {

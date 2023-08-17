@@ -28,8 +28,8 @@ function Users() {
 
   return (
     <>
-      <h1 className="text-5xl pb-10 ml-4 text-center">Users</h1>
-      <div className="mx-4">
+      <h1 className="text-5xl pb-8 ml-4 text-center">Users</h1>
+      <div className="grid place-items-center">
         <Button
           type="button"
           title="Create User Button"
@@ -42,7 +42,7 @@ function Users() {
           ? users.map((user) => <User key={user.user_id} user={user} />)
           : null}
       </div>
-      <div className="mx-4 my-4">
+      <div className="grid place-items-center">
         <Button
           type="button"
           title="Create User Button"

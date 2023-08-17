@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useUserService } from "../../services/useUserService";
 import { states } from "../../util/states";
 import Card from "../common/Card";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import Select from "../common/Select";
+import Checkbox from "../common/Checkbox";
 
 import { zipCodePattern, phoneNumberPattern, dobPattern } from "../../util/regex";
 import { transformDateForService } from "../../util/dates";
 
 function CreateUser() {
   const userService = useUserService();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +28,8 @@ function CreateUser() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
+  const [termsAgreed, setTermsAgreed] = useState(false);
+  const [signup, setSignup] = useState(false);
 
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -34,24 +40,68 @@ function CreateUser() {
   const [dobError, setDobError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [zipError, setZipError] = useState("");
+  const [termsAgreedError, setTermsAgreedError] = useState("");
   const [dateChecked, setDateChecked] = useState(false);
 
-  const handleUsernameChange = (e) => setUsername(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-  const handleVerifyPasswordChange = (e) => setVerifyPassword(e.target.value);
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handleFirstNameChange = (e) => setFirstName(e.target.value);
-  const handleLastNameChange = (e) => setLastName(e.target.value);
-  const handleDobChange = (e) => setDob(e.target.value);
-  const handlePhoneChange = (e) => setPhone(e.target.value);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    setUsernameError("")
+  };
+  const handlePasswordChange = (e) => { 
+    setPassword(e.target.value);
+    setPasswordError("");
+  };
+  const handleVerifyPasswordChange = (e) => {
+    setVerifyPassword(e.target.value);
+    setVerifyPasswordError("");
+  };
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setEmailError("");
+  };
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+    setFirstNameError("");
+  };
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+    setLastNameError("");
+  }
+  const handleDobChange = (e) => {
+    setDob(e.target.value);
+    setDobError("");
+  }
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+    setPhoneError("");
+  }
   const handleAddressChange = (e) => setAddress(e.target.value);
   const handleCityChange = (e) => setCity(e.target.value);
   const handleStateChange = (e) => setState(e.target.value);
-  const handleZipChange = (e) => setZip(e.target.value);
+  const handleZipChange = (e) => {
+    setZip(e.target.value);
+    setZipError("");
+  }
+  const handleTermsChange = () => {
+    setTermsAgreed(!termsAgreed);
+    setTermsAgreedError("");
+  };
 
   const isValidZip = (input) => input.match(zipCodePattern);
   const isPhoneValid = (input) => input.match(phoneNumberPattern);
   const isDobValid = (input) => input.match(dobPattern);
+
+  useEffect(() => {
+    const { state } = location;
+    const user = localStorage.getItem('user');
+    console.log(state);
+    if (state && state.signup) {
+      console.log(state.signup);
+      setSignup(state.signup);
+    } else if (!user) {
+      navigate('/');
+    }
+  }, []);
 
   const submitForm = async () => {
     const response = await userService.addUser({
@@ -110,7 +160,10 @@ function CreateUser() {
     } else {
       setLastNameError("");
     }
-    if (zip && !isValidZip(zip)) {
+    if (!zip) {
+      setZipError("Please enter a zip code");
+      errorCount++;
+    } else if (zip && !isValidZip(zip)) {
       setZipError("Please enter a valid five digit zip code");
       errorCount++;
     } else {
@@ -138,6 +191,10 @@ function CreateUser() {
     } else {
       setDobError("");
     }
+    if (signup && !termsAgreed) {
+      setTermsAgreedError("Please accept the terms and conditions");
+      errorCount++;
+    }
     return errorCount === 0;
   };
 
@@ -151,7 +208,7 @@ function CreateUser() {
   };
 
   return (
-    <Card title="Create User">
+    <Card title={!signup ? "Create User" : "Create Account"}>
       <div className="grid place-items-center">
         <form className="w-11/12 pb-4">
           <Input
@@ -292,6 +349,17 @@ function CreateUser() {
             value={city}
             spacing={2}
           />
+          <Select
+            id="states"
+            name="states"
+            title="States Select"
+            options={states}
+            onChange={handleStateChange}
+            label="State"
+            spacing={2}
+            required={true}
+            disabled={false}
+          />
           <Input
             id="zip"
             name="zip"
@@ -306,18 +374,15 @@ function CreateUser() {
             error={zipError}
             spacing={2}
           />
-          <Select
-            id="states"
-            name="states"
-            title="States Select"
-            options={states}
-            onChange={handleStateChange}
-            label="State"
-            spacing={2}
-            required={true}
-            disabled={false}
-          />
-
+          {signup && <Checkbox 
+            id="terms" 
+            name="terms" 
+            title="Terms Agreement" 
+            label="I agree to the Terms and Conditions" 
+            onChange={handleTermsChange} 
+            checked={termsAgreed} 
+            error={termsAgreedError}
+          />}
           <Button
             type="submit"
             onClick={(e) => handleSubmit(e)}

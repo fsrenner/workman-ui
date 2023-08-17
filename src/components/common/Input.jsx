@@ -54,7 +54,7 @@ Input.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   title: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['text','email', 'password', 'date', 'number', 'file', 'hidden']),
   placeholder: PropTypes.string,
   value: PropTypes.string,
   pattern: PropTypes.string,
