@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch';
 import { useDispatch } from "react-redux";
 import { login, logout } from "../store/loginSlice";
+import { showConfirmation } from '../store/confirmationSlice';
 
 const endpoints = {
   login: '/login',
@@ -33,6 +34,7 @@ function useUserService() {
         console.log(user);
         dispatch(login(user.user))
         localStorage.setItem("user", JSON.stringify(user.user));
+        dispatch(showConfirmation({ alertType: 'success', message: 'Successfully logged in'}));
         navigate(navigation.home, { state: { user } });
       } catch (error) {
         console.error(error);
