@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch';
+import { useDispatch } from "react-redux";
+import { login, logout } from "../store/loginSlice";
 
 const endpoints = {
   login: '/login',
@@ -17,6 +19,7 @@ const navigation = {
 function useUserService() {
   const fetch = useFetch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return {
     login: async (username, password) => {
@@ -28,16 +31,19 @@ function useUserService() {
           "include"
         );
         console.log(user);
+        dispatch(login(user.user))
         localStorage.setItem("user", JSON.stringify(user.user));
         navigate(navigation.home, { state: { user } });
       } catch (error) {
         console.error(error);
         navigate(navigation.signup);
       }
+      
     },
     logout: async () => {
       try {
         await fetch.post(endpoints.logout, null, 'include');
+        dispatch(logout());
       } catch (error) {
         console.error(error);
       }
