@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import { useUserService } from '../../services/useUserService';
 
 import Button from '../common/Button';
@@ -9,6 +10,7 @@ import Input from '../common/Input';
 function Login() {
   const userService = useUserService();
   const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.login.loggedIn);
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -75,12 +77,12 @@ function Login() {
             onClick={(e) => handleSubmit(e, "login")}
             text="Sign In"
           />
-          <Button
+          {!isLoggedIn && <Button
             type="button"
             title="Create Account Button"
             onClick={(e) => handleSubmit(e, "signup")}
             text="Create Account"
-          />
+          />}
           <a
             className="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-gray-800"
             href="/reset"
