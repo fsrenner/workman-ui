@@ -32,9 +32,9 @@ function Users() {
       <div className="grid place-items-center">
         <Button
           type="button"
-          title="Create User Button"
+          title="Add User Button"
           onClick={(e) => handleCreateClick(e)}
-          text="Create User"
+          text="Add User"
         />
       </div>
       <div>
@@ -45,9 +45,9 @@ function Users() {
       <div className="grid place-items-center">
         <Button
           type="button"
-          title="Create User Button"
+          title="Add User Button"
           onClick={(e) => handleCreateClick(e)}
-          text="Create User"
+          text="Add User"
         />
       </div>
     </>

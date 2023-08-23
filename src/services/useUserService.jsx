@@ -4,21 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/loginSlice";
 import { showConfirmation } from '../store/confirmationSlice';
 
-const endpoints = {
-  login: '/login',
-  logout: '/logout',
-  users: '/users',
-  verify: '/users/verify'
-};
-
-const navigation = {
-  home: '/',
-  signup: '/signup',
-  login: '/login',
-  users: '/users'
-};
-
 function useUserService() {
+  const endpoints = {
+    login: "/login",
+    logout: "/logout",
+    users: "/users",
+    verify: "/users/verify",
+  };
+
+  const navigation = {
+    home: "/",
+    signup: "/signup",
+    login: "/login",
+    users: "/users",
+  };
+
   const fetch = useFetch();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ function useUserService() {
         dispatch(
           showConfirmation({
             alertType: "error",
-            message: `There was an error logging the user in: ${error.message}`,
+            message: `There was an error logging the user in: ${error}`,
           })
         );
         navigate(navigation.signup);
@@ -138,7 +138,7 @@ function useUserService() {
         dispatch(
           showConfirmation({
             alertType: "error",
-            message: `There was an error updating the user: ${error.message}`,
+            message: `There was an error updating the user: ${error}`,
           })
         );
       }
@@ -162,7 +162,7 @@ function useUserService() {
         dispatch(
           showConfirmation({
             alertType: "error",
-            message: `There was an error deleting the user: ${error.message}`,
+            message: `There was an error deleting the user: ${error}`,
           })
         );
       }
