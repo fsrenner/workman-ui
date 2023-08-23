@@ -67,20 +67,22 @@ function User({ user, hideButtons }) {
             {user.verified || user.verified === "true" ? "yes" : "no"}
           </p>
         </div>
-        {hideButtons || <div className="grid grid-cols-2 gap-4 text-xs text-left text-gray-500 pb-2">
-          <Button
-            type="button"
-            title="Update User Button"
-            onClick={(e) => handleSubmit(e, "update", user.user_id)}
-            text="Update"
-          />
-          <Button
-            type="button"
-            title="Create Account Button"
-            onClick={(e) => handleSubmit(e, "delete", user.user_id)}
-            text="Delete"
-          />
-        </div>}
+        {hideButtons || (
+          <div className="grid grid-cols-2 gap-4 text-xs text-left text-gray-500 pb-2">
+            <Button
+              type="button"
+              title="Update User Button"
+              onClick={(e) => handleSubmit(e, "update", user.user_id)}
+              text="Update"
+            />
+            <Button
+              type="button"
+              title="Create Account Button"
+              onClick={(e) => handleSubmit(e, "delete", user.user_id)}
+              text="Delete"
+            />
+          </div>
+        )}
       </div>
     </Card>
   );

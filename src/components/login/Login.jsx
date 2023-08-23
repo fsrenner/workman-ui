@@ -10,7 +10,7 @@ import Input from '../common/Input';
 function Login() {
   const userService = useUserService();
   const navigate = useNavigate();
-  const isLoggedIn = useSelector((state) => state.login.loggedIn);
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
