@@ -71,23 +71,23 @@ function UpdateUser() {
     setZipError("");
   };
 
-  const isValidZip = (input) => input.match(zipCodePattern);
-  const isPhoneValid = (input) => input.match(phoneNumberPattern);
-  const isDobValid = (input) => input.match(dobPattern);
+  const isValidZip = (input) => input && input.match(zipCodePattern);
+  const isPhoneValid = (input) => input && input.match(phoneNumberPattern);
+  const isDobValid = (input) => input && input.match(dobPattern);
 
   useEffect(() => {
     const { user } = location.state;
     setUserId(user.user_id);
-    setUsername(user.username);
-    setEmail(user.email);
-    setFirstName(user.first_name);
-    setLastName(user.last_name);
-    setDob(user.date_of_birth);
-    setPhone(user.phone_number);
-    setAddress(user.setAddress);
-    setCity(user.setCity);
+    setUsername(user.username || "");
+    setEmail(user.email || "");
+    setFirstName(user.first_name || "");
+    setLastName(user.last_name || "");
+    setDob(user.date_of_birth || "");
+    setPhone(user.phone_number.toString() || "");
+    setAddress(user.setAddress || "");
+    setCity(user.setCity || "");
     setState(user.state);
-    setZip(user.zip);
+    setZip(user.zip.toString() || "");
   }, []);
 
   const submitForm = async () => {
@@ -273,6 +273,8 @@ function UpdateUser() {
               options={states}
               onChange={handleStateChange}
               label="State"
+              value={state}
+              selected={state}
               spacing={2}
               required={true}
               disabled={false}

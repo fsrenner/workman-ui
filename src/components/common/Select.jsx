@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+// import { useState } from 'react';
 
 function Select({
   classes,
@@ -12,7 +13,17 @@ function Select({
   spacing,
   required,
   disabled,
+  selected,
 }) {
+
+  const optionsArr = options
+    ? options.map((option, key) => (
+        <option key={key} value={option.value} selected={selected && option.value === selected ? 'selected' : ''}>
+          {option.label}
+        </option>
+      ))
+    : null;
+
   return (
     <div className={`mb-${spacing}`}>
       <label
@@ -29,14 +40,9 @@ function Select({
         className={`${classes} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
         required={required}
         disabled={disabled}
+        selected={selected}
       >
-        {options
-          ? options.map((option, key) => (
-              <option key={key} value={option.value}>
-                {option.label}
-              </option>
-            ))
-          : null}
+        {optionsArr}
       </select>
       {error && <p className="pt-1 text-red-500 text-xs italic">{error}</p>}
     </div>
@@ -58,6 +64,7 @@ Select.propTypes = {
     value: PropTypes.string,
     label: PropTypes.string
   })),
+  selected: PropTypes.string,
 };
 
 export default Select;

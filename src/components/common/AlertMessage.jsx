@@ -1,13 +1,30 @@
 /* eslint-disable react/no-unknown-property */
 import PropTypes from 'prop-types';
+import { useEffect, useState } from "react";
+import { useDispatch } from 'react-redux';
+import { hideConfirmation } from '../../store/confirmationSlice';
 
-function AlertMessage({ alertType, message }) {
+function AlertMessage({ alertType, message, styling }) {
+  const dispatch = useDispatch();
+  const [displayStyle, setDisplayStyle] = useState(styling);
+
+  useEffect(() => {
+    setDisplayStyle(styling);
+    setTimeout(() => {
+      setDisplayStyle({
+        animation: 'fadeOut 1s',
+      });
+      dispatch(hideConfirmation());
+    }, 3000);
+    
+  });
 
   const info = (
     <div
       id="alert-1"
-      className="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50"
+      className="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 w-full"
       role="alert"
+      style={displayStyle}
     >
       <svg
         className="flex-shrink-0 w-4 h-4"
@@ -36,9 +53,9 @@ function AlertMessage({ alertType, message }) {
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
           />
         </svg>
@@ -49,8 +66,9 @@ function AlertMessage({ alertType, message }) {
   const error = (
     <div
       id="alert-2"
-      className="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50"
+      className="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 w-full"
       role="alert"
+      style={displayStyle}
     >
       <svg
         className="flex-shrink-0 w-4 h-4"
@@ -59,12 +77,12 @@ function AlertMessage({ alertType, message }) {
         fill="none"
         viewBox="0 0 25 25"
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+        <g id="SVGRepo_bgCarrier" strokeWidth="0" />
 
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
 
         <g id="SVGRepo_iconCarrier">
@@ -72,23 +90,23 @@ function AlertMessage({ alertType, message }) {
           <path
             d="M16 2H8L2 8V16L8 22H16L22 16V8L16 2Z"
             stroke="#991b1b"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />{" "}
           <path
             d="M12 8V12"
             stroke="#991b1b"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />{" "}
           <path
             d="M12 16.0195V16"
             stroke="#991b1b"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />{" "}
         </g>
       </svg>
@@ -110,9 +128,9 @@ function AlertMessage({ alertType, message }) {
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
           />
         </svg>
@@ -123,8 +141,9 @@ function AlertMessage({ alertType, message }) {
   const success = (
     <div
       id="alert-3"
-      className="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50"
+      className="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 w-full"
       role="alert"
+      style={displayStyle}
     >
       <svg
         className="flex-shrink-0 w-4 h-4"
@@ -135,9 +154,9 @@ function AlertMessage({ alertType, message }) {
       >
         <path
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           d="M1 5.917 5.724 10.5 15 1.5"
         />
       </svg>
@@ -159,9 +178,9 @@ function AlertMessage({ alertType, message }) {
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
           />
         </svg>
@@ -172,8 +191,9 @@ function AlertMessage({ alertType, message }) {
   const warning = (
     <div
       id="alert-4"
-      className="flex items-center p-4 mb-4 text-yellow-800 rounded-lg bg-yellow-50"
+      className="flex items-center p-4 mb-4 text-yellow-800 rounded-lg bg-yellow-50 w-full"
       role="alert"
+      style={displayStyle}
     >
       <svg
         className="flex-shrink-0 w-4 h-4"
@@ -182,12 +202,12 @@ function AlertMessage({ alertType, message }) {
         fill="none"
         viewBox="0 0 25 25"
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+        <g id="SVGRepo_bgCarrier" strokeWidth="0" />
 
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
 
         <g id="SVGRepo_iconCarrier">
@@ -196,16 +216,16 @@ function AlertMessage({ alertType, message }) {
           <path
             d="M12 10L12 14"
             stroke="#854d0e"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />{" "}
           <path
             d="M3.44722 18.1056L10.2111 4.57771C10.9482 3.10361 13.0518 3.10362 13.7889 4.57771L20.5528 18.1056C21.2177 19.4354 20.2507 21 18.7639 21H5.23607C3.7493 21 2.78231 19.4354 3.44722 18.1056Z"
             stroke="#854d0e"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />{" "}
         </g>
       </svg>
@@ -227,9 +247,9 @@ function AlertMessage({ alertType, message }) {
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
           />
         </svg>
@@ -250,7 +270,8 @@ function AlertMessage({ alertType, message }) {
 
 AlertMessage.propTypes = {
   alertType: PropTypes.string,
-  message: PropTypes.message,
+  message: PropTypes.string,
+  styling: PropTypes.object,
 };
 
 export default AlertMessage;

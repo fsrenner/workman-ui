@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Logo from '../common/Logo';
 import Button from '../common/Button';
 
-function NavigationComponent({ isLoggedIn }) {
+function NavigationContainer({ isLoggedIn }) {
   const navigate = useNavigate();
   const [navbar, setNavbar] = useState(false);
   const linkClickNavigation = (path, state) => {
@@ -145,7 +145,7 @@ function NavigationComponent({ isLoggedIn }) {
   );
 }
 
-NavigationComponent.propTypes = {
+NavigationContainer.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
 
@@ -155,6 +155,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-const Navigation = connect(mapStateToProps)(NavigationComponent);
-
+const Navigation = connect(mapStateToProps)(NavigationContainer);
 export default Navigation;
