@@ -1,23 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 import Logo from '../common/Logo';
 import Button from '../common/Button';
 
-function Navigation() {
+function NavigationContainer({ isLoggedIn }) {
   const navigate = useNavigate();
   const [navbar, setNavbar] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const linkClickNavigation = (path, state) => {
     navigate(path, { state });
     setNavbar(!navbar);
   };
-
-  useEffect(() => {
-    const isUserLoggedIn = localStorage.getItem('user');
-    if (isUserLoggedIn) {
-      setIsLoggedIn(!isLoggedIn);
-    }
-  }, []);
 
   return (
     <nav className="w-full  absolute bg-white z-100 shadow">
@@ -151,4 +145,15 @@ function Navigation() {
   );
 }
 
+NavigationContainer.propTypes = {
+  isLoggedIn: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.login.isLoggedIn,
+  };
+};
+
+const Navigation = connect(mapStateToProps)(NavigationContainer);
 export default Navigation;

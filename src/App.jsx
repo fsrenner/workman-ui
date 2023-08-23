@@ -9,7 +9,9 @@ import Signup from './components/signup/Signup';
 import Layout from './components/layout/Layout';
 import CreateUser from './components/users/CreateUser';
 import PasswordReset from './components/login/PasswordReset';
+import UpdateUser from './components/users/UpdateUser';
 import DeleteUser from './components/users/DeleteUser';
+import Unauthorized from './components/unauthorized/Unauthorized';
 
 function App() {
   return (
@@ -21,11 +23,12 @@ function App() {
           <Route exact path="/logout" element={<Logout />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/reset" element={<PasswordReset />} />
+          <Route exact path="/unauthorized" element={<Unauthorized />} />
           <Route exact path="/churches" element={<Churches />} />
           <Route exact path="/businesses" element={<Businesses />} />
           <Route exact path="/users" element={<Users />} />
           <Route exact path="/users/add" element={<CreateUser />} />
-          <Route exact path="/users/update/:userId" element={<CreateUser />} />
+          <Route exact path="/users/update/:userId" element={<UpdateUser />} />
           <Route exact path="/users/delete/:userId" element={<DeleteUser />} />
         </Routes>
       </Layout>

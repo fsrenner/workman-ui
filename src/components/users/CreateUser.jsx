@@ -9,7 +9,6 @@ import Select from "../common/Select";
 import Checkbox from "../common/Checkbox";
 
 import { zipCodePattern, phoneNumberPattern, dobPattern } from "../../util/regex";
-import { transformDateForService } from "../../util/dates";
 
 function CreateUser() {
   const userService = useUserService();
@@ -41,7 +40,6 @@ function CreateUser() {
   const [phoneError, setPhoneError] = useState("");
   const [zipError, setZipError] = useState("");
   const [termsAgreedError, setTermsAgreedError] = useState("");
-  const [dateChecked, setDateChecked] = useState(false);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -184,13 +182,9 @@ function CreateUser() {
     if (dob && !isDobValid(dob)) {
       setDobError("Please enter a valid date");
       errorCount++;
-    } else if (dob && !dateChecked && isDobValid(dob)) {
-      setDobError("");
-      setDateChecked(true)
-      setDob(transformDateForService(dob));
     } else {
       setDobError("");
-    }
+    } 
     if (signup && !termsAgreed) {
       setTermsAgreedError("Please accept the terms and conditions");
       errorCount++;
@@ -300,7 +294,7 @@ function CreateUser() {
             name="dob"
             title="Date of Birth Input"
             type="text"
-            placeholder="01/01/2000"
+            placeholder="mm/dd/yyyy"
             label="Date of Birth"
             required={true}
             disabled={false}

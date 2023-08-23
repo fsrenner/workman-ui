@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
 import Card from "../common/Card";
 import Input from "../common/Input";
-import AlertMessage from "../common/AlertMessage";
 
 function PasswordReset() {
 
@@ -55,7 +54,6 @@ function PasswordReset() {
   return (
     <>
       <Card title="Reset Password">
-        <AlertMessage message="test" alertType="warning" />
         <form className="bg-white rounded px-8 pt-6 pb-8 mb-4">
           <Input
             id="username"
