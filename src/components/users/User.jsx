@@ -35,20 +35,20 @@ function User({ user, hideButtons }) {
         <div className="text-sm text-left text-gray-500">
           <p className="pb-1">
             <span className="text-gray-900 font-semibold">Address: </span>
-            {`${user.address || ""}, ${user.city || ""}, ${user.state || ""} ${
-              user.zip || ""
-            }`}
+            {`${user.address + "," || ""} ${user.city + "," || ""} ${
+              user.state || ""
+            } ${user.zip || ""}`}
           </p>
         </div>
 
         <div className="grid grid-cols-2 text-sm text-left text-gray-500 pb-2">
           <p className="pb-1">
             <span className="text-gray-900 font-semibold">DOB: </span>
-            {getReadableDate(user.date_of_birth)}
+            {getReadableDate(user.date_of_birth) || "N/A"}
           </p>
           <p className="pb-1">
             <span className="text-gray-900 font-semibold">Phone: </span>
-            {user.phone_number}
+            {user.phone_number || "N/A"}
           </p>
         </div>
         <div className="text-sm text-left text-gray-500">

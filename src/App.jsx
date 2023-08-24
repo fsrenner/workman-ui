@@ -11,6 +11,9 @@ import CreateUser from './components/users/CreateUser';
 import PasswordReset from './components/login/PasswordReset';
 import UpdateUser from './components/users/UpdateUser';
 import DeleteUser from './components/users/DeleteUser';
+import CreateChurch from './components/churches/CreateChurch';
+import UpdateChurch from "./components/churches/UpdateChurch";
+import DeleteChurch from './components/churches/DeleteChurch';
 import Unauthorized from './components/unauthorized/Unauthorized';
 
 function App() {
@@ -25,6 +28,17 @@ function App() {
           <Route exact path="/reset" element={<PasswordReset />} />
           <Route exact path="/unauthorized" element={<Unauthorized />} />
           <Route exact path="/churches" element={<Churches />} />
+          <Route exact path="/churches/add" element={<CreateChurch />} />
+          <Route
+            exact
+            path="/churches/update/:churchId"
+            element={<UpdateChurch />}
+          />
+          <Route
+            exact
+            path="/churches/delete/:churchId"
+            element={<DeleteChurch />}
+          />
           <Route exact path="/businesses" element={<Businesses />} />
           <Route exact path="/users" element={<Users />} />
           <Route exact path="/users/add" element={<CreateUser />} />

@@ -1,25 +1,26 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useChurchService } from "../../services/useChurchService";
 import { states } from "../../util/states";
 import Card from "../common/Card";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import Select from "../common/Select";
+import TextArea from "../common/TextArea";
 
 import {
   zipCodePattern,
   phoneNumberPattern,
+  removeNonDigitChars,
 } from "../../util/regex";
 
 function CreateChurch() {
   const churchService = useChurchService();
-  const navigate = useNavigate();
 
   const [name, setName] = useState('');
   const [denomination, setDenomination] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -42,8 +43,9 @@ function CreateChurch() {
     setEmail(e.target.value);
     setEmailError("");
   };
+  const handleWebsiteChange = (e) => setWebsite(e.target.value);
   const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
+    setPhone(removeNonDigitChars(e.target.value));
     setPhoneError("");
   };
   const handleAddressChange = (e) => setAddress(e.target.value);
@@ -52,10 +54,6 @@ function CreateChurch() {
   const handleZipChange = (e) => {
     setZip(e.target.value);
     setZipError("");
-  };
-  const handleTermsChange = () => {
-    setTermsAgreed(!termsAgreed);
-    setTermsAgreedError("");
   };
 
   const isValidZip = (input) => input.match(zipCodePattern);
@@ -67,6 +65,7 @@ function CreateChurch() {
       denomination,
       description,
       email,
+      website,
       phone,
       address,
       city,
@@ -91,13 +90,12 @@ function CreateChurch() {
       setZipError("");
     }
     if (phone) {
-      const phoneDigits = phone.replace(/\D/g, "");
-      if (!isPhoneValid(phoneDigits)) {
+      if (!isPhoneValid(phone)) {
         setPhoneError("Please enter a valid phone number");
         errorCount++;
       } else {
         setPhoneError("");
-        setPhone(phoneDigits);
+        setPhone(phone);
       }
     } else {
       setPhoneError("");
@@ -145,11 +143,121 @@ function CreateChurch() {
             value={denomination}
             spacing={2}
           />
+          <TextArea
+            id="description"
+            name="description"
+            title="Description Textarea"
+            placeholder=""
+            label="Description"
+            required={true}
+            disabled={false}
+            onChange={handleDescriptionChange}
+            value={description}
+            spacing={2}
+          />
+          <Input
+            id="email"
+            name="email"
+            title="Email Input"
+            type="email"
+            placeholder="something@test.com"
+            label="Email"
+            required={false}
+            disabled={false}
+            onChange={handleEmailChange}
+            value={email}
+            error={emailError}
+            spacing={2}
+          />
+          <Input
+            id="website"
+            name="website"
+            title="Website Input"
+            type="text"
+            placeholder=""
+            label="Website"
+            required={false}
+            disabled={false}
+            onChange={handleWebsiteChange}
+            value={website}
+            spacing={2}
+          />
+          <Input
+            id="phone"
+            name="phone"
+            title="Phone Number Input"
+            type="text"
+            placeholder="999-999-9999"
+            label="Phone Number"
+            required={true}
+            disabled={false}
+            onChange={handlePhoneChange}
+            value={phone}
+            error={phoneError}
+            spacing={2}
+          />
+          <Input
+            id="address"
+            name="address"
+            title="Address Input"
+            type="text"
+            placeholder=""
+            label="Address"
+            required={false}
+            disabled={false}
+            onChange={handleAddressChange}
+            value={address}
+            spacing={2}
+          />
+          <Input
+            id="city"
+            name="city"
+            title="City Input"
+            type="text"
+            placeholder=""
+            label="City"
+            required={false}
+            disabled={false}
+            onChange={handleCityChange}
+            value={city}
+            spacing={2}
+          />
+          <Select
+            id="states"
+            name="states"
+            title="States Select"
+            options={states}
+            onChange={handleStateChange}
+            label="State"
+            spacing={2}
+            required={false}
+            disabled={false}
+          />
+          <Input
+            id="zip"
+            name="zip"
+            title="Zip Code Input"
+            type="text"
+            placeholder="99999"
+            label="Zip Code"
+            required={false}
+            disabled={false}
+            onChange={handleZipChange}
+            value={zip}
+            error={zipError}
+            spacing={2}
+          />
+          <Button
+            type="submit"
+            onClick={(e) => handleSubmit(e)}
+            text="Submit"
+            title="User Create Submit Button"
+            classes="text-sm w-full sm:w-auto rounded mt-4"
+          />
         </form>
       </div>
     </Card>
   );
-
 }
 
 export default CreateChurch;

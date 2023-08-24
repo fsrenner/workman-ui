@@ -296,7 +296,7 @@ function CreateUser() {
             type="text"
             placeholder="mm/dd/yyyy"
             label="Date of Birth"
-            required={true}
+            required={false}
             disabled={false}
             onChange={handleDobChange}
             value={dob}
@@ -310,7 +310,7 @@ function CreateUser() {
             type="text"
             placeholder="999-999-9999"
             label="Phone Number"
-            required={true}
+            required={false}
             disabled={false}
             onChange={handlePhoneChange}
             value={phone}
@@ -324,7 +324,7 @@ function CreateUser() {
             type="text"
             placeholder=""
             label="Address"
-            required={true}
+            required={false}
             disabled={false}
             onChange={handleAddressChange}
             value={address}
@@ -337,7 +337,7 @@ function CreateUser() {
             type="text"
             placeholder=""
             label="City"
-            required={true}
+            required={false}
             disabled={false}
             onChange={handleCityChange}
             value={city}
@@ -351,7 +351,7 @@ function CreateUser() {
             onChange={handleStateChange}
             label="State"
             spacing={2}
-            required={true}
+            required={false}
             disabled={false}
           />
           <Input
@@ -368,15 +368,17 @@ function CreateUser() {
             error={zipError}
             spacing={2}
           />
-          {signup && <Checkbox 
-            id="terms" 
-            name="terms" 
-            title="Terms Agreement" 
-            label="I agree to the Terms and Conditions" 
-            onChange={handleTermsChange} 
-            checked={termsAgreed} 
-            error={termsAgreedError}
-          />}
+          {signup && (
+            <Checkbox
+              id="terms"
+              name="terms"
+              title="Terms Agreement"
+              label="I agree to the Terms and Conditions"
+              onChange={handleTermsChange}
+              checked={termsAgreed}
+              error={termsAgreedError}
+            />
+          )}
           <Button
             type="submit"
             onClick={(e) => handleSubmit(e)}

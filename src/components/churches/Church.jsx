@@ -29,7 +29,7 @@ function Church({ church, hideButtons }) {
           <div className="text-sm text-left text-gray-500">
             <p>
               <span className="text-gray-900 font-semibold">
-                Denomination:
+                Denomination:{" "}
               </span>
               {church.denomination}
             </p>
@@ -39,14 +39,21 @@ function Church({ church, hideButtons }) {
         <div className="text-sm text-left text-gray-500">
           <p>
             <span className="text-gray-900 font-semibold">Email: </span>
-            {church.email}
+            {church.email || "N/A"}
+          </p>
+        </div>
+
+        <div className="text-sm text-left text-gray-500">
+          <p>
+            <span className="text-gray-900 font-semibold">Website: </span>
+            {church.website || "N/A"}
           </p>
         </div>
 
         <div className="text-sm text-left text-gray-500">
           <p className="pb-3">
             <span className="text-gray-900 font-semibold">Phone: </span>
-            {church.phone_number}
+            {church.phone_number || "N/A"}
           </p>
         </div>
 
@@ -60,7 +67,7 @@ function Church({ church, hideButtons }) {
         <div className="text-sm text-left text-gray-500">
           <p className="pb-1">
             <span className="text-gray-900 font-semibold">Address: </span>
-            {`${church.address || ""}, ${church.city || ""}, ${
+            {`${church.address + "," || ""} ${church.city + "," || ""} ${
               church.state || ""
             } ${church.zip || ""}`}
           </p>
@@ -94,6 +101,7 @@ Church.propTypes = {
     denomination: PropTypes.string,
     description: PropTypes.string,
     email: PropTypes.string,
+    website: PropTypes.string,
     phone_number: PropTypes.string,
     address: PropTypes.string,
     city: PropTypes.string,
